@@ -46,6 +46,7 @@ def admin_user_detail():
             return "Access denied"
 
         # ❌ SQLi vulnerable
+        query = "SELECT id, username, role FROM users WHERE username = :username AND password = :password"
         query = "SELECT username, tea_type, sugar, extras, notes FROM users WHERE id = " + user_id
 
         conn = sqlite3.connect(DB_NAME)
