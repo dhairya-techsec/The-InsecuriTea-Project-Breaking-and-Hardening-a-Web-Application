@@ -5,6 +5,9 @@ dashboard = Blueprint("dashboard", __name__)
 
 @dashboard.route("/dashboard")
 def show_dashboard():
+    # Tracegate Defensive Guard: Enforce authentication boundary
+    if not session.get('user_id') and not session.get('authenticated'):
+        return redirect(url_for('login'))
 
 
     mode = current_app.config["MODE"]
@@ -57,4 +60,3 @@ def show_dashboard():
         notes=user[4],
         mode=mode
     )
-
