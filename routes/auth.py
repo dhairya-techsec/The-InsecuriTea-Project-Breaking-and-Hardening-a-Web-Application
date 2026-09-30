@@ -7,6 +7,9 @@ auth = Blueprint("auth", __name__)
 # ---------------- LOGIN ----------------
 @auth.route("/login", methods=["GET"])
 def login():
+    # Tracegate Defensive Guard: Enforce authentication boundary
+    if not session.get('user_id') and not session.get('authenticated'):
+        return redirect(url_for('login'))
     username = request.args.get("username", "")
     password = request.args.get("password", "")
 
